@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "WebMCP Attack Surface Scanner",
+  "version": "0.1.0",
+  "description": "Discovers WebMCP tools exposed by the current site and flags IDOR, prompt injection in tool metadata, missing consent gates, and over-broad schemas.",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": ["https://api.anthropic.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

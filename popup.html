@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  body {
+    width: 420px; max-height: 560px; overflow-y: auto; margin: 0;
+    background: #0d1117; color: #c9d1d9; font-family: ui-monospace, "SF Mono", monospace;
+    font-size: 12.5px;
+  }
+  .hdr { padding: 14px 16px; border-bottom: 1px solid #30363d; background: #161b22; }
+  .hdr .title { font-weight: 700; color: #e6edf3; font-size: 13.5px; }
+  .hdr .meta { color: #7d8590; margin-top: 4px; font-size: 11.5px; }
+  .body { padding: 12px 16px; }
+  button.action {
+    background: #21262d; color: #c9d1d9; border: 1px solid #30363d; border-radius: 6px;
+    padding: 8px 12px; font-family: inherit; font-size: 12.5px; cursor: pointer; width: 100%;
+  }
+  button.action:disabled { opacity: .5; cursor: not-allowed; }
+  .wmcp-summary { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0; }
+  .wmcp-chip { padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+  .wmcp-chip.CRITICAL { background: #3d1418; color: #ff7b72; border: 1px solid #f8514966; }
+  .wmcp-chip.HIGH { background: #3d290f; color: #ffa657; border: 1px solid #ffa65766; }
+  .wmcp-chip.MEDIUM { background: #3a3413; color: #e3b341; border: 1px solid #e3b34166; }
+  .wmcp-chip.LOW { background: #10301c; color: #7ee787; border: 1px solid #7ee78766; }
+  .wmcp-finding { border: 1px solid #30363d; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; background: #161b22; }
+  .wmcp-finding .sev { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10.5px; font-weight: 800; letter-spacing: .03em; }
+  .wmcp-finding.CRITICAL .sev { background: #f85149; color: #0d1117; }
+  .wmcp-finding.HIGH .sev { background: #ffa657; color: #0d1117; }
+  .wmcp-finding.MEDIUM .sev { background: #e3b341; color: #0d1117; }
+  .wmcp-finding.LOW .sev { background: #7ee787; color: #0d1117; }
+  .wmcp-finding .tool { color: #79c0ff; font-weight: 700; margin-left: 6px; }
+  .wmcp-finding .desc { color: #c9d1d9; margin-top: 6px; line-height: 1.5; }
+  .wmcp-finding .evidence { color: #7d8590; margin-top: 6px; white-space: pre-wrap; border-top: 1px dashed #30363d; padding-top: 6px; }
+  #status { color: #7d8590; margin-top: 10px; min-height: 16px; }
+  .license-row { display: flex; gap: 6px; margin-bottom: 10px; }
+  .license-row input {
+    flex: 1; background: #161b22; border: 1px solid #30363d; border-radius: 6px;
+    color: #c9d1d9; font-family: inherit; font-size: 12px; padding: 7px 8px;
+  }
+  .license-row button {
+    background: #21262d; color: #c9d1d9; border: 1px solid #30363d; border-radius: 6px;
+    padding: 7px 10px; font-family: inherit; font-size: 12px; cursor: pointer;
+  }
+  #licenseStatus { font-size: 11px; margin-bottom: 10px; min-height: 14px; }
+  #licenseStatus.pro { color: #7ee787; }
+  #licenseStatus.free { color: #7d8590; }
+  #licenseStatus a { color: #79c0ff; }
+  .apikey-row { display: none; gap: 6px; margin-bottom: 6px; }
+  .apikey-row input {
+    flex: 1; background: #161b22; border: 1px solid #30363d; border-radius: 6px;
+    color: #c9d1d9; font-family: inherit; font-size: 12px; padding: 7px 8px;
+  }
+  .apikey-hint { display: none; font-size: 10.5px; color: #7d8590; margin-bottom: 10px; line-height: 1.4; }
+  .wmcp-finding.ai-tag { border-left: 3px solid #79c0ff; }
+  .wmcp-finding .src { color: #79c0ff; font-size: 10px; font-weight: 700; margin-left: 6px; }
+</style>
+</head>
+<body>
+  <div class="hdr">
+    <div class="title">WebMCP Attack Surface Scanner</div>
+    <div class="meta" id="target"></div>
+  </div>
+  <div class="body">
+    <div class="license-row">
+      <input type="text" id="licenseInput" placeholder="License key (optional — Pro unlocks AI triage)" />
+      <button id="licenseBtn">Activate</button>
+    </div>
+    <div id="licenseStatus"></div>
+    <div class="apikey-row" id="apiKeyRow">
+      <input type="password" id="apiKeyInput" placeholder="Anthropic API key (sk-ant-...)" />
+      <button id="apiKeyBtn">Save</button>
+    </div>
+    <div class="apikey-hint" id="apiKeyHint">Pro uses your own Anthropic API key for AI triage — stored only in this browser, sent only to api.anthropic.com. You pay Anthropic directly for the tokens it uses.</div>
+    <button class="action" id="scanBtn">Scan this page</button>
+    <div id="status"></div>
+    <div id="results"></div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
