@@ -35,3 +35,7 @@ After paying, email the address on the payment page for your license key, then p
 ## Scope
 
 Only scan sites you own or are explicitly authorized to test. This tool makes real tool calls (including the active IDOR probe) — treat it like any other active security testing tool.
+
+## Contributing
+
+Issues and PRs welcome — especially bug reports on the AI-triage path, which is the newest and least battle-tested part of the codebase.
